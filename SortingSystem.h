@@ -153,11 +153,63 @@ void SortingSystem<T>::showMenu() {
 
 
 }
-template <typename T> void SortingSystem<T>::insertionSort() { cout << "Insertion Sort Called\n"; }
+template <typename T> void SortingSystem<T>::insertionSort() {
 
-template <typename T> void SortingSystem<T>::selectionSort() { cout << "Selection Sort Called\n"; }
 
-template <typename T> void SortingSystem<T>::bubbleSort() { cout << "Bubble Sort Called\n"; }
+
+
+
+
+
+    cout << "Insertion Sort Called\n"; }
+
+
+
+template <typename T>
+void SortingSystem<T>::selectionSort() {
+    cout<<"Data : ";
+    for (int i = 0; i < size; ++i) {
+        cout << data[i] << " ";
+    }
+    cout<<"\n";
+    for (int i = 0; i < size - 1; ++i) {
+
+        int minIndex = i;
+
+
+        for (int j = i + 1; j < size; j++) {
+            if (data[j] < data[minIndex]) {
+                minIndex = j;
+            }
+        }
+
+
+        if (minIndex != i) {
+            cout << "Swapping " << data[i] << " with " << data[minIndex] << "\n";
+            swap(data[i], data[minIndex]);
+        }
+
+
+        cout << "Array after swap " << i + 1 << ": ";
+        for (int k = 0; k < size; k++) {
+            cout << data[k] << " ";
+        }
+        cout << "\n";
+    }
+
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << data[i] << " ";
+    }
+    cout << "\nSelection Sort Completed\n";
+}
+
+
+template <typename T> void SortingSystem<T>::bubbleSort() {
+
+
+
 
 
 
@@ -176,7 +228,17 @@ template <typename T> void SortingSystem<T>::radixSort() { cout << "Radix Sort C
 
 template <typename T> void SortingSystem<T>::bucketSort() { cout << "Bucket Sort Called\n"; }
 
-template <typename T> void SortingSystem<T>::displayData() { cout << "displayData\n"; }
+template <typename T> void SortingSystem<T>::displayData() {
+
+
+    for (int i = 0; i < size; ++i) {
+
+
+        cout<<data[i]<<",";
+    }
+
+
+}
 
 
 
