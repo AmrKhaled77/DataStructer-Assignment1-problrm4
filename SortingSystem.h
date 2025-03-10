@@ -1,7 +1,7 @@
 #ifndef SORTINGSYSTEM_H
 #define SORTINGSYSTEM_H
 
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 template <typename T>
@@ -34,12 +34,6 @@ public:
 };
 
 
-
-
-
-
-
-
 #include <iostream>
 using namespace std;
 
@@ -61,6 +55,16 @@ void getValidIntegerInput(int &num) {
     }
 }
 
+template <typename T>
+void print(T data[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+}
+
 #include "SortingSystem.h"
 
 
@@ -73,16 +77,12 @@ SortingSystem<T>::SortingSystem(int n) {
     for (int i = 0; i < size; i++)
         cin >> data[i];
 }
+
 // Destructor
 template <typename T>
 SortingSystem<T>::~SortingSystem() {
     delete[] data;
 }
-
-
-
-
-
 
 template <typename T>
 void SortingSystem<T>::showMenu() {
@@ -153,17 +153,10 @@ void SortingSystem<T>::showMenu() {
 
 
 }
-template <typename T> void SortingSystem<T>::insertionSort() {
 
-
-
-
-
-
-
-    cout << "Insertion Sort Called\n"; }
-
-
+template <typename T> void SortingSystem<T>::quickSort(int left, int right) {
+    cout << "Quick Sort Called\n";
+}
 
 template <typename T>
 void SortingSystem<T>::selectionSort() {
@@ -206,9 +199,8 @@ void SortingSystem<T>::selectionSort() {
 }
 
 
-template <typename T> void SortingSystem<T>::bubbleSort() {
-
-
+template <typename T>
+void SortingSystem<T>::bubbleSort() {
     cout<<"Data : ";
     for (int i = 0; i < size; ++i) {
         cout << data[i] << " ";
@@ -246,17 +238,91 @@ template <typename T> void SortingSystem<T>::bubbleSort() {
     }
 
 
+template <typename T> void SortingSystem<T>::insertionSort() {
+    cout << "Insertion Sort Called\n";
+}
 
-template <typename T> void SortingSystem<T>::shellSort() { cout << "Shell Sort Called\n"; }
+template <typename T> void SortingSystem<T>::shellSort() {
+    cout << "Shell Sort Called\n";
+}
 
-template <typename T> void SortingSystem<T>::mergeSort(int left, int right) { cout << "Merge Sort Called\n"; }
+template <typename T> void SortingSystem<T>::mergeSort(int left, int right) {
+    if (left < right)
+    {
+        int middle = left + (right - left) / 2;
 
-template <typename T> void SortingSystem<T>::quickSort(int left, int right) { cout << "Quick Sort Called\n"; }
+        cout << "\nDividing process : ";
+        for (int i = left; i <= right; i++)
+            cout << data[i] << " ";
+        cout << endl;
+
+        mergeSort(left, middle);
+        mergeSort(middle + 1, right);
+
+        merge(left, middle, right);
+    }
+}
+template <typename T>
+void SortingSystem<T>:: merge(int left, int mid, int right)
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    T *lArr = new T[n1];
+    T *rArr = new T[n2];
+
+    for (int i = 0; i < n1; ++i)
+    {
+        lArr[i] = data[left + i];
+    }
+    for (int i = 0; i < n2; ++i)
+    {
+        rArr[i] = data[mid + 1 + i];
+    }
+
+    cout<<"\nMerging process\n";
+    cout << "Left part of array: ";
+    print(lArr, n1);
+    cout << "Right part of array: ";
+    print(rArr, n2);
+
+    int i = 0, j = 0, k = left;
+
+    while (i < n1 && j < n2)
+    {
+        if (lArr[i] <= rArr[j])
+        {
+            data[k] = lArr[i];
+            i++;
+        }
+        else
+        {
+            data[k] = rArr[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1)
+    {
+        data[k] = lArr[i];
+        i++;
+        k++;
+    }
+    while (j < n2)
+    {
+        data[k] = rArr[j];
+        j++;
+        k++;
+    }
+    cout << "Merged result: ";
+    print(data, size);
+    delete[] lArr;
+    delete[] rArr;
+}
+
+
 
 template <typename T> void SortingSystem<T>::countSort() { cout << "Count Sort Called\n"; }
-
-
-
 
 template <typename T> void SortingSystem<T>::radixSort() { cout << "Radix Sort Called\n"; }
 
@@ -273,6 +339,7 @@ template <typename T> void SortingSystem<T>::displayData() {
 
 
 }
+
 
 
 
