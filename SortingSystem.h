@@ -209,7 +209,41 @@ void SortingSystem<T>::selectionSort() {
 template <typename T> void SortingSystem<T>::bubbleSort() {
 
 
+    cout<<"Data : ";
+    for (int i = 0; i < size; ++i) {
+        cout << data[i] << " ";
+    }
 
+    for (int i = 0; i < size- 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < size - i - 1; j++) {
+            if (data[j] > data[j + 1]) {
+                swap(data[j], data[j + 1]);
+
+                swapped = true;
+
+                    cout << "Swapping " << data[j] << " with " << data[j+1] << "\n";
+                    cout << "Array after swap " << i + 1 << ": ";
+                    for (int k = 0; k < size; k++) {
+                        cout << data[k] << " ";
+                    }
+                    cout<<"\n";
+
+
+
+
+            }
+
+        }
+        if (!swapped) break;
+
+
+    }
+    cout << "Sorted array: ";
+    for (int i = 0; i < size; ++i) {
+        cout << data[i] << " ";
+    }
+    }
 
 
 
