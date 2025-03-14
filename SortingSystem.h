@@ -24,13 +24,14 @@ public:
     void countSort();      // (7) Count Sort (Only for int)
     void radixSort();      // (8) Radix Sort (Only for int)
     void bucketSort();     // (9) Bucket Sort
-
     void merge(int left, int mid, int right); // Merge Sort Helper
+
     int partition(int low, int high);        // Quick Sort Helper
     bool isIntArray(T* data); // checks if the data array is of int type for count and radix sort.
     void displayData();   // Print the current state of the array
     void measureSortTime(void (SortingSystem::*sortFunc)());
-    void showMenu();      // Display menu for user interaction
+    void showMenu();
+    void rebeatMenu();
 };
 
 
@@ -52,6 +53,34 @@ void getValidIntegerInput(int &num) {
         } else{
             return ;
         }
+    }
+}
+int n;
+template <typename T>
+
+void SortingSystem<T>::rebeatMenu(){
+    cout<<"Do you want to sort another dataset?  \n"
+          "1-> yes\n "
+          "2-> no  ";
+
+
+    while (!(std::cin >> n) || (n != 1 && n != 2)) {
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cout << "Invalid input. Please enter 1 or 2: ";
+    }
+    switch (n) {
+        case 1:
+            cout << "Enter number of elements: ";
+            getValidIntegerInput(n);
+
+            showMenu();
+            break;
+        case 2:
+            delete[] data;
+            cout<<"Thank you for using the sorting system! Goodbye!";
+            exit(0);
+
     }
 }
 
@@ -112,8 +141,7 @@ void SortingSystem<T>::measureSortTime(void(SortingSystem<T>::*sortFunc)())
 template <typename T>
 void SortingSystem<T>::showMenu(){
     int choice;
-    do
-    {
+
         cout << "\n Menu:\n";
         cout << "1-> Insertion Sort\n";
         cout << "2-> Selection Sort\n";
@@ -132,27 +160,34 @@ void SortingSystem<T>::showMenu(){
         switch (choice) {
             case 1:
                 insertionSort();
+                measureSortTime(&SortingSystem::insertionSort);
+                rebeatMenu();
 
                 break;
             case 2:
                 selectionSort();
-
+                measureSortTime(&SortingSystem::selectionSort);
+                rebeatMenu();
                 break;
             case 3:
                 bubbleSort();
-
+                measureSortTime(&SortingSystem::bubbleSort);
+                rebeatMenu();
                 break;
             case 4:
                 shellSort();
-
+                measureSortTime(&SortingSystem::shellSort);
+                rebeatMenu();
                 break;
             case 5:
                 mergeSort(0, size - 1);
-
+                measureSortTime(&SortingSystem::shellSort);
+                rebeatMenu();
                 break;
             case 6:
                 quickSort(0, size - 1);
 
+                rebeatMenu();
                 break;
             case 7:
                 if(!isIntArray(data))
@@ -160,7 +195,9 @@ void SortingSystem<T>::showMenu(){
                     cout<<"To implement Count Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
                 }else
                 {
+
                     measureSortTime(&SortingSystem::countSort);
+                    rebeatMenu();
                 }
                 break;
             case 8:
@@ -170,10 +207,13 @@ void SortingSystem<T>::showMenu(){
                 }else
                 {
                     measureSortTime(&SortingSystem::radixSort);
+                    rebeatMenu();
                 }
                 break;
             case 9:
                 bucketSort();
+                measureSortTime(&SortingSystem::bucketSort);
+                rebeatMenu();
                 break;
             case 10:
                 displayData();
@@ -184,7 +224,7 @@ void SortingSystem<T>::showMenu(){
             default:
                 cout << "Invalid choice! Please try again.\n";
             }
-    } while (choice != 0);
+
 
 }
 
