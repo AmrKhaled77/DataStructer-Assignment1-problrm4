@@ -190,6 +190,9 @@ do {
             break;
         case 6:
             quickSort(0, size - 1);
+            cout<<"Sorted data : ";
+            displayData();
+            cout<<"\n";
 
             rebeatMenu();
             break;
@@ -230,11 +233,55 @@ do {
 
 
 }
+template <typename T>
+int SortingSystem<T>:: partition( int l, int h) {
+    int p = data[l];
+    int i = l;
+    int j = h;
 
-template <typename T> void SortingSystem<T>::quickSort(int left, int right) {
-    cout << "Quick Sort Called\n";
+    while (i < j) {
+
+        while (i < h && data[i] <= p) {
+            i++;
+        }
+
+        while (j > l && data[j] > p) {
+            j--;
+        }
+
+        if (i < j) {
+            swap(data[i], data[j]);
+        }
+    }
+
+    swap(data[l], data[j]);
+    return j;
 }
 
+
+template <typename T>
+void SortingSystem<T>::quickSort(int left, int right) {
+    if (left < right) {
+        int piv = partition( left, right);
+
+        std::cout << "Pivot: " << data[piv] << " -> [ ";
+        for (int i = left; i < piv; i++) {
+            cout << data[i] << " ";
+        }
+        cout << "] " << data[piv] << " [ ";
+        for (int i = piv + 1; i <= right; i++) {
+            cout << data[i] << " ";
+        }
+        cout << "]" << endl;
+
+
+        quickSort(left, piv - 1);
+        quickSort(piv + 1, right);
+    }
+
+
+
+}
 template <typename T>
 void SortingSystem<T>::selectionSort() {
     cout<<"Data : ";
