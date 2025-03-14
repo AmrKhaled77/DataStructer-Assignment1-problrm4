@@ -71,10 +71,13 @@ void SortingSystem<T>::rebeatMenu(){
     }
     switch (n) {
         case 1:
-            delete[] data;  // Free previous data
+
             cout << "Enter number of elements: ";
             getValidIntegerInput(n);
-            data = new T[n];  // Allocate new array
+            size=n;
+            delete[] data;
+            data = new T[n];
+
             cout << "Enter " << n << " elements:\n";
             for (int i = 0; i < n; i++) cin >> data[i];
 
