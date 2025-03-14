@@ -2,6 +2,7 @@
 #define SORTINGSYSTEM_H
 
 #include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 template <typename T>
@@ -26,10 +27,9 @@ public:
 
     void merge(int left, int mid, int right); // Merge Sort Helper
     int partition(int low, int high);        // Quick Sort Helper
-
+    bool isIntArray(T* data); // checks if the data array is of int type for count and radix sort.
     void displayData();   // Print the current state of the array
-    void measureSortTime(void (SortingSystem::*sortFunc)()); // Measure sorting time
-
+    void measureSortTime(void (SortingSystem::*sortFunc)());
     void showMenu();      // Display menu for user interaction
 };
 
@@ -66,8 +66,8 @@ void print(T data[], int n)
 }
 
 #include "SortingSystem.h"
-
-
+#include <chrono>
+using namespace std;
 // Constructor
 template <typename T>
 SortingSystem<T>::SortingSystem(int n) {
@@ -85,9 +85,35 @@ SortingSystem<T>::~SortingSystem() {
 }
 
 template <typename T>
-void SortingSystem<T>::showMenu() {
+
+bool SortingSystem<T>::isIntArray(T* data)
+{
+    if(!is_same_v<T,int>)
+    {
+        return false;
+    }
+    return true;
+}
+
+template <typename T>
+
+//this function executes the sorting function and calculates the time taken by 
+void SortingSystem<T>::measureSortTime(void(SortingSystem<T>::*sortFunc)())
+{
+    auto startTime = chrono::high_resolution_clock::now();
+
+    (this->*sortFunc)();
+
+    auto endTime = chrono::high_resolution_clock::now();
+    auto timeTaken = chrono::duration_cast<chrono::microseconds>(endTime-startTime);
+    cout<<"Time taken: "<<timeTaken.count()<<" microseconds\n";
+}      
+
+template <typename T>
+void SortingSystem<T>::showMenu(){
     int choice;
-    do {
+    do
+    {
         cout << "\n Menu:\n";
         cout << "1-> Insertion Sort\n";
         cout << "2-> Selection Sort\n";
@@ -129,16 +155,25 @@ void SortingSystem<T>::showMenu() {
 
                 break;
             case 7:
-                countSort();
-
+                if(!isIntArray(data))
+                {
+                    cout<<"To implement Count Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
+                }else
+                {
+                    measureSortTime(&SortingSystem::countSort);
+                }
                 break;
             case 8:
-                radixSort();
-
+                if (!isIntArray(data))
+                {
+                    cout<<"To implement Radix Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
+                }else
+                {
+                    measureSortTime(&SortingSystem::radixSort);
+                }
                 break;
             case 9:
                 bucketSort();
-
                 break;
             case 10:
                 displayData();
@@ -148,9 +183,8 @@ void SortingSystem<T>::showMenu() {
                 break;
             default:
                 cout << "Invalid choice! Please try again.\n";
-        }
+            }
     } while (choice != 0);
-
 
 }
 
@@ -322,11 +356,66 @@ void SortingSystem<T>:: merge(int left, int mid, int right)
 
 
 
-template <typename T> void SortingSystem<T>::countSort() { cout << "Count Sort Called\n"; }
+template <typename T> void SortingSystem<T>::countSort()
+{
+     cout << "Count Sort Called\n";
 
-template <typename T> void SortingSystem<T>::radixSort() { cout << "Radix Sort Called\n"; }
+     int maxNumber = *(max_element (data,data+size));
+     int minNumber = *(min_element (data,data+size));
 
-template <typename T> void SortingSystem<T>::bucketSort() { cout << "Bucket Sort Called\n"; }
+     int range = maxNumber - minNumber + 1; //the range is the size of my count array.
+
+     int *countArray = new int[range];
+
+     // counting occurences.
+
+     for (int i = 0 ; i<size ; i++)
+     {
+        int index = data[i] - minNumber; //the index of the value in the count array.
+        countArray[index]++;
+     }
+
+     //showing the counting state
+
+     for(int i = 0 ; i < range ; i++)
+     {
+        int element = i+minNumber;
+        int freq = countArray[i];
+        cout<<"The element: "<< element << " occured: "<<freq<<" Times\n"; 
+     }
+
+     //inserting the sorted data and displaying each step to the user.
+
+     int dataIndex = 0 ;
+
+     for(int i = 0 ; i < range ; i++)
+     {
+        while(countArray[i] > 0)
+        {
+            data[dataIndex] = i + minNumber;
+            countArray[i]--;
+            dataIndex++;
+        }
+        cout<<"The data after step: "<<i+1<<": ";
+        displayData();
+        cout<<'\n';
+     }
+
+     //Cleaning
+
+     delete[] countArray;
+}
+
+template <typename T> void SortingSystem<T>::radixSort()
+ {
+     cout << "Radix Sort Called\n";
+     
+ }
+
+template <typename T> void SortingSystem<T>::bucketSort()
+ {
+     cout << "Bucket Sort Called\n";
+ }
 
 template <typename T> void SortingSystem<T>::displayData() {
 
