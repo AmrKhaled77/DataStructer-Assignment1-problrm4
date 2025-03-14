@@ -1,4 +1,4 @@
-# Install script for directory: F:/DataStructer-Assignment1-problrm4
+# Install script for directory: F:/lastDataASsignment
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "F:/DataStructer-Assignment1-problrm4/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "F:/lastDataASsignment/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
