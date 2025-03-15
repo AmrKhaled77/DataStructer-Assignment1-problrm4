@@ -143,7 +143,8 @@ void SortingSystem<T>::measureSortTime(void(SortingSystem<T>::*sortFunc)())
     auto endTime = chrono::high_resolution_clock::now();
     auto timeTaken = chrono::duration_cast<chrono::microseconds>(endTime-startTime);
     cout<<"Time taken: "<<timeTaken.count()<<" microseconds\n";
-}      
+}
+
 
 template <typename T>
 void SortingSystem<T>::showMenu(){
@@ -166,8 +167,8 @@ do {
 
     switch (choice) {
         case 1:
-            insertionSort();
-            measureSortTime(&SortingSystem::insertionSort);
+
+           measureSortTime(&SortingSystem::insertionSort);
             rebeatMenu();
 
             break;
@@ -188,7 +189,7 @@ do {
             break;
         case 5:
             mergeSort(0, size - 1);
-            measureSortTime(&SortingSystem::shellSort);
+            //measureSortTime(bind(&SortingSystem::mergeSort ,this,0,size-1));
             rebeatMenu();
             break;
         case 6:
@@ -366,7 +367,34 @@ void SortingSystem<T>::bubbleSort() {
 
 
 template <typename T> void SortingSystem<T>::insertionSort() {
-    cout << "Insertion Sort Called\n";
+    int key ,j ;
+    int it_count=1 ;
+    for (int i = 1; i < size ; ++i) {
+        cout<<"\n---------------------------------\n";
+        cout<<"iteration num :"<<it_count++<<endl;
+        cout<<"data :";
+        print(data ,size);
+
+        key = data[i];
+        cout<<"item we want to find its place is : "<< key<<endl;
+
+        j= i-1;
+        cout<<"\ncomparing to find place for the key  "<<endl;
+        while (j>=0 && data[j]>key)
+        {
+            cout<<"swaping " << data[j+1]<<" and "<<data[j]<<endl ;
+            data[j+1]= data[j];
+            j=j-1;
+
+        }
+        data[j+1]= key;
+        cout<<key<< " is in its  place right now  "<<endl;
+
+
+    }
+    cout<<"\ndata after sorting:";
+    print(data,size);
+
 }
 
 template <typename T> void SortingSystem<T>::shellSort() {
