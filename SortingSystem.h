@@ -22,6 +22,7 @@ public:
     void mergeSort(int left, int right); // (5) Merge Sort
     void quickSort(int left, int right); // (6) Quick Sort
     void countSort();      // (7) Count Sort (Only for int)
+    void countSort(int exp);      // (7) Count Sort (Only for int)
     void radixSort();      // (8) Radix Sort (Only for int)
     void bucketSort();     // (9) Bucket Sort
     void merge(int left, int mid, int right); // Merge Sort Helper
@@ -60,7 +61,7 @@ template <typename T>
 
 void SortingSystem<T>::rebeatMenu(){
     cout<<"Do you want to sort another dataset?  \n"
-          "1-> yes\n "
+          "1-> yes\n"
           "2-> no  ";
 
 
@@ -476,7 +477,7 @@ template <typename T> void SortingSystem<T>::countSort()
         int freq = countArray[i];
         cout<<"The element: "<< element << " occured: "<<freq<<" Times\n"; 
      }
-
+        cout << '\n';
      //inserting the sorted data and displaying each step to the user.
 
      int dataIndex = 0 ;
@@ -492,18 +493,52 @@ template <typename T> void SortingSystem<T>::countSort()
         cout<<"The data after step: "<<i+1<<": ";
         displayData();
         cout<<'\n';
-     }
+     } cout << '\n';
 
      //Cleaning
 
      delete[] countArray;
 }
 
+// Counting Sort for a specific digit place
+void countingSort(int data[] , int exp , int size) {
+    int output[size];
+    int countArray[10] = {0};  // Count array for digits 0-9
+
+    // Count occurrences of digits at 'exp' place
+    for (int i = 0; i < size; i++) 
+        countArray[(data[i] / exp) % 10]++;
+
+    // Update count[i] to store actual positions in output[]
+    for (int i = 1; i < 10; i++) 
+        countArray[i] += countArray[i - 1];
+
+    // Build the output array
+    for (int i = size - 1; i >= 0; i--) {
+        output[countArray[(data[i] / exp) % 10] - 1] = data[i];
+        countArray[(data[i] / exp) % 10]--;
+    }
+    // Copy output back to arr
+    for (int i = 0; i < size; i++)
+    {
+        data[i] = output[i];
+    } 
+}
+
+// Radix Sort function
+
 template <typename T> void SortingSystem<T>::radixSort()
- {
-     cout << "Radix Sort Called\n";
-     
- }
+{
+    int maxVal = *max_element(data,data+size);
+
+    // Apply counting sort for each digit place (1, 10, 100, ...)
+    for (int exp = 1; maxVal / exp > 0; exp *= 10)
+    {
+        countingSort(data, exp, size);
+    }cout<<"Sorted Array: ";
+    displayData(); 
+    cout<<'\n';
+}
 
 template <typename T> void SortingSystem<T>::bucketSort()
  {
