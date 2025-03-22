@@ -107,12 +107,26 @@ void print(T data[], int n)
 using namespace std;
 // Constructor
 template <typename T>
-SortingSystem<T>::SortingSystem(int n) {
+SortingSystem<T>:: SortingSystem(int n) {
     size = n;
     data = new T[size];
     cout << "Enter " << size << " elements:\n";
-    for (int i = 0; i < size; i++)
-        cin >> data[i];
+
+    for (int i = 0; i < size; i++) {
+        while (true) {
+            cout << "Element " << i + 1 << ": ";
+            cin >> data[i];
+
+
+            if (cin.fail()) {
+                cin.clear();  // Clear the error flag
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input! Please enter a valid value.\n";
+            } else {
+                break;
+            }
+        }
+    }
 }
 
 // Destructor
