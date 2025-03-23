@@ -22,7 +22,7 @@ public:
     void mergeSort(int left, int right); // (5) Merge Sort
     void quickSort(int left, int right); // (6) Quick Sort
     void countSort();      // (7) Count Sort (Only for int)
-    void countSort(int exp);      // (7) Count Sort (Only for int)
+
     void radixSort();      // (8) Radix Sort (Only for int)
     void bucketSort();     // (9) Bucket Sort
     void merge(int left, int mid, int right); // Merge Sort Helper
@@ -216,21 +216,24 @@ do {
             rebeatMenu();
             break;
         case 7:
-            if (!isIntArray(data)) {
-                cout<< "\nTo implement Count Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
-            } else {
-
+            if constexpr (std::is_same<T, int>::value) {
                 measureSortTime(&SortingSystem::countSort);
                 rebeatMenu();
+
             }
+            else{
+                cout<<"can use only with int value ";
+            }
+
             break;
         case 8:
-            if (!isIntArray(data)) {
-                cout
-                        << "To implement Radix Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
-            } else {
+            if constexpr (std::is_same<T, int>::value) {
                 measureSortTime(&SortingSystem::radixSort);
                 rebeatMenu();
+
+            }
+            else {
+                cout<<"can use only with int value ";
             }
             break;
         case 9:

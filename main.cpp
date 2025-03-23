@@ -4,21 +4,7 @@ using namespace std;
 #include "SortingSystem.h"
 
 
-int main() {
 
-    int n,type;
-
-    cout << "Enter number of elements: ";
-    getValidIntegerInput(n);
-
-    SortingSystem<int> sorter(n);
-
-
-    sorter.showMenu();
-
-}
-
-/*
 int main()
 {
     int n, choice;
@@ -41,14 +27,13 @@ int main()
     {
         SortingSystem<double> sorter(n);
         sorter.showMenu();
-       // (hena by2oly in el count sort mynf34 t4t8l ela m3 intger) 
-       // Et7lt ya man. MSY 
+
     }
     else if (choice == 3)
     {
         SortingSystem<string> sorter(n);
-        sorter.showMenu();
-       // (hena brdo fe error m4 fahmo)
+   //   sorter.showMenu();
+
     }
     else
     {
@@ -57,4 +42,5 @@ int main()
 
     return 0;
 }
-*/
+
+
