@@ -207,14 +207,14 @@ do {
             //measureSortTime(bind(&SortingSystem::mergeSort ,this,0,size-1));
             rebeatMenu();
             break;
-//        case 6:
-//            quickSort(0, size - 1);
-//            cout<<"Sorted data : ";
-//            displayData();
-//            cout<<"\n";
-//
-//            rebeatMenu();
-//            break;
+        case 6:
+            quickSort(0, size - 1);
+            cout<<"Sorted data : ";
+            displayData();
+            cout<<"\n";
+
+            rebeatMenu();
+            break;
         case 7:
             if constexpr (std::is_same<T, int>::value) {
                 measureSortTime(&SortingSystem::countSort);
@@ -255,7 +255,7 @@ do {
 }
 template <typename T>
 int SortingSystem<T>:: partition( int l, int h) {
-    int p = data[l];
+    T p = data[l];
     int i = l;
     int j = h;
 
@@ -302,6 +302,8 @@ void SortingSystem<T>::quickSort(int left, int right) {
 
 
 }
+
+
 template <typename T>
 void SortingSystem<T>::selectionSort() {
     cout<<"Data : ";
