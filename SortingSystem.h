@@ -56,6 +56,42 @@ void getValidIntegerInput(int &num) {
         }
     }
 }
+void mainMenu()
+{
+    int size, choice;
+    cout << "Enter number of elements: ";
+    getValidIntegerInput(size);
+
+    cout << "Choose a data type:\n";
+    cout << "1. Integer\n";
+    cout << "2. Double\n";
+    cout << "3. String\n";
+    cout << "Enter choice: ";
+    getValidIntegerInput(choice);
+
+    if (choice == 1)
+    {
+        SortingSystem<int> sorter(size);
+        sorter.showMenu();
+    }
+    else if (choice == 2)
+    {
+        SortingSystem<double> sorter(size);
+        sorter.showMenu();
+
+    }
+    else if (choice == 3)
+    {
+     SortingSystem<string> sorter(size);
+     sorter.showMenu();
+
+    }
+    else
+    {
+        cout << "Invalid choice. Exiting...\n";
+    }
+
+}
 int n;
 template <typename T>
 
@@ -72,20 +108,11 @@ void SortingSystem<T>::rebeatMenu(){
     }
     switch (n) {
         case 1:
-
-            cout << "Enter number of elements: ";
-            getValidIntegerInput(n);
-            size=n;
-            delete[] data;
-            data = new T[n];
-
-            cout << "Enter " << n << " elements:\n";
-            for (int i = 0; i < n; i++) cin >> data[i];
-
-            showMenu();
+            this->~SortingSystem();
+            mainMenu();
             break;
         case 2:
-            delete[] data;
+            this->~SortingSystem();
             cout<<"Thank you for using the sorting system! Goodbye!";
             exit(0);
 

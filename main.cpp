@@ -7,39 +7,7 @@ using namespace std;
 
 int main()
 {
-    int n, choice;
-    cout << "Enter number of elements: ";
-    getValidIntegerInput(n);
-
-    cout << "Choose a data type:\n";
-    cout << "1. Integer\n";
-    cout << "2. Double\n";
-    cout << "3. String\n";
-    cout << "Enter choice: ";
-    getValidIntegerInput(choice);
-
-    if (choice == 1)
-    {
-        SortingSystem<int> sorter(n);
-        sorter.showMenu();
-    }
-    else if (choice == 2)
-    {
-        SortingSystem<double> sorter(n);
-        sorter.showMenu();
-
-    }
-    else if (choice == 3)
-    {
-        SortingSystem<string> sorter(n);
-     sorter.showMenu();
-
-    }
-    else
-    {
-        cout << "Invalid choice. Exiting...\n";
-    }
-
+    mainMenu();
     return 0;
 }
 
