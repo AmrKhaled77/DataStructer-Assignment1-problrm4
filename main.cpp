@@ -7,10 +7,10 @@ using namespace std;
 
 int main() {
 
-    int n;
+    int n,type;
+
     cout << "Enter number of elements: ";
     getValidIntegerInput(n);
-
 
     SortingSystem<int> sorter(n);
 

@@ -148,7 +148,7 @@ bool SortingSystem<T>::isIntArray(T* data)
 
 template <typename T>
 
-//this function executes the sorting function and calculates the time taken by 
+//this function executes the sorting function and calculates the time taken by it 
 void SortingSystem<T>::measureSortTime(void(SortingSystem<T>::*sortFunc)())
 {
     auto startTime = chrono::high_resolution_clock::now();
@@ -235,7 +235,6 @@ do {
             }
             break;
         case 9:
-            bucketSort();
             measureSortTime(&SortingSystem::bucketSort);
             rebeatMenu();
             break;
@@ -582,9 +581,61 @@ template <typename T> void SortingSystem<T>::radixSort()
     cout<<'\n';
 }
 
+template <typename T> void  bucketsInsertionSort(T data [] , int size)
+{
+    for(int i = 1; i<size ; i++)
+    {
+        T key = data [i];
+        int j = i-1;
+        while( j>=0 && (data[j] > key))
+        {
+            data[j+1] = data [j];
+            j--;
+        }data[j+1] = key;
+
+    }
+}
+
 template <typename T> void SortingSystem<T>::bucketSort()
  {
      cout << "Bucket Sort Called\n";
+     if (size <= 0) return;
+    int bucketCount = 10;
+    T minValue = data[0], maxValue = data[0];
+    for (int i = 1; i < size; i++) {
+        if (data[i] < minValue) minValue = data[i];
+        if (data[i] > maxValue) maxValue = data[i];
+    }
+    
+    T range = (maxValue - minValue) / bucketCount + 1;
+    
+    T** buckets = new T*[bucketCount];
+    int* bucketSizes = new int[bucketCount]();
+    
+    for (int i = 0; i < bucketCount; i++) {
+        buckets[i] = new T[n];
+    }
+    
+    for (int i = 0; i < size; i++) {
+        int index = (data[i] - minValue) / range;
+        buckets[index][bucketSizes[index]++] = data[i];
+    }
+    
+    int index = 0;
+    for (int i = 0; i < bucketCount; i++) {
+        bucketsInsertionSort(buckets[i], bucketSizes[i]);
+        for (int j = 0; j < bucketSizes[i]; j++) {
+            data[index++] = buckets[i][j];
+        }
+        delete[] buckets[i];
+    }
+    
+    delete[] buckets;
+    delete[] bucketSizes;
+    cout<<"Sorted data : ";
+    displayData();
+    cout<<'\n';
+
  }
 
 template <typename T> void SortingSystem<T>::displayData() {
