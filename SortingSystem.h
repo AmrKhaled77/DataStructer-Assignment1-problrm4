@@ -181,12 +181,12 @@ do {
     getValidIntegerInput(choice);
 
     switch (choice) {
-//        case 1:
-//
-//           measureSortTime(&SortingSystem::insertionSort);
-//            rebeatMenu();
-//
-//            break;
+       case 1:
+
+           measureSortTime(&SortingSystem::insertionSort);
+            rebeatMenu();
+
+              break;
         case 2:
             selectionSort();
             measureSortTime(&SortingSystem::selectionSort);
@@ -236,10 +236,10 @@ do {
                 cout<<"can use only with int value ";
             }
             break;
-//        case 9:
-//            measureSortTime(&SortingSystem::bucketSort);
-//            rebeatMenu();
-//            break;
+        case 9:
+            measureSortTime(&SortingSystem::bucketSort);
+            rebeatMenu();
+        break;
         case 10:
             displayData();
             break;
@@ -385,7 +385,8 @@ void SortingSystem<T>::bubbleSort() {
 
 
 template <typename T> void SortingSystem<T>::insertionSort() {
-    int key ,j ;
+    T key ;
+    int j;
     int it_count=1 ;
     for (int i = 1; i < size ; ++i) {
         cout<<"\n---------------------------------\n";
@@ -600,28 +601,45 @@ template <typename T> void  bucketsInsertionSort(T data [] , int size)
     }
 }
 
+
+
+//getValue is a helper function that returns a number
+//if the data is numeric and a length if it's a string
+
+template<typename T> T getValue(const T& input)
+
+{
+    return input;
+}
+
+// for strings
+int getValue(const string& input)
+{
+    return input.length();
+}
+
 template <typename T> void SortingSystem<T>::bucketSort()
  {
      cout << "Bucket Sort Called\n";
      if (size <= 0) return;
     int bucketCount = 10;
-    T minValue = data[0], maxValue = data[0];
+    int minValue = getValue(data[0]), maxValue = getValue(data[0]);
     for (int i = 1; i < size; i++) {
-        if (data[i] < minValue) minValue = data[i];
-        if (data[i] > maxValue) maxValue = data[i];
+        if (getValue(data[i]) < minValue) minValue = getValue(data[i]);
+        if (getValue(data[i]) > maxValue) maxValue = getValue(data[i]);
     }
     
-    T range = (maxValue - minValue) / bucketCount + 1;
+    int range = (maxValue - minValue) / bucketCount + 1;
     
     T** buckets = new T*[bucketCount];
     int* bucketSizes = new int[bucketCount]();
     
     for (int i = 0; i < bucketCount; i++) {
-        buckets[i] = new T[n];
+        buckets[i] = new T[size];
     }
     
     for (int i = 0; i < size; i++) {
-        int index = (data[i] - minValue) / range;
+        int index = (getValue(data[i]) - minValue) / range;
         buckets[index][bucketSizes[index]++] = data[i];
     }
     
@@ -642,6 +660,7 @@ template <typename T> void SortingSystem<T>::bucketSort()
 
  }
 
+
 template <typename T> void SortingSystem<T>::displayData() {
 
 
@@ -652,14 +671,6 @@ template <typename T> void SortingSystem<T>::displayData() {
 
 
 }
-
-
-
-
-
-
-
-
 
 
 #endif // SORTINGSYSTEM_H
