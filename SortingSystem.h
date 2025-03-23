@@ -217,8 +217,7 @@ do {
             break;
         case 7:
             if (!isIntArray(data)) {
-                cout
-                        << "To implement Count Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
+                cout<< "\nTo implement Count Sort the data you entered must be of integer type\nChoose another algorithm or redefine your data\n";
             } else {
 
                 measureSortTime(&SortingSystem::countSort);
@@ -542,13 +541,13 @@ template <typename T> void SortingSystem<T>::countSort()
 }
 
 // Counting Sort for a specific digit place
-void countingSort(int data[] , int exp , int size) {
+template<typename T> void countingSort(T data[] , int exp , int size) {
     int output[size];
     int countArray[10] = {0};  // Count array for digits 0-9
 
     // Count occurrences of digits at 'exp' place
     for (int i = 0; i < size; i++) 
-        countArray[(data[i] / exp) % 10]++;
+        countArray[(int(data[i]) / exp) % 10]++;
 
     // Update count[i] to store actual positions in output[]
     for (int i = 1; i < 10; i++) 
@@ -556,8 +555,8 @@ void countingSort(int data[] , int exp , int size) {
 
     // Build the output array
     for (int i = size - 1; i >= 0; i--) {
-        output[countArray[(data[i] / exp) % 10] - 1] = data[i];
-        countArray[(data[i] / exp) % 10]--;
+        output[countArray[(int(data[i]) / exp) % 10] - 1] = data[i];
+        countArray[(int(data[i]) / exp) % 10]--;
     }
     // Copy output back to arr
     for (int i = 0; i < size; i++)
@@ -643,8 +642,7 @@ template <typename T> void SortingSystem<T>::displayData() {
 
     for (int i = 0; i < size; ++i) {
 
-
-        cout<<data[i]<<",";
+        cout<<data[i]<<" : ";
     }
 
 
