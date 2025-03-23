@@ -32,7 +32,7 @@ int main()
     else if (choice == 3)
     {
         SortingSystem<string> sorter(n);
-   //   sorter.showMenu();
+     sorter.showMenu();
 
     }
     else

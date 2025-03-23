@@ -181,12 +181,12 @@ do {
     getValidIntegerInput(choice);
 
     switch (choice) {
-        case 1:
-
-           measureSortTime(&SortingSystem::insertionSort);
-            rebeatMenu();
-
-            break;
+//        case 1:
+//
+//           measureSortTime(&SortingSystem::insertionSort);
+//            rebeatMenu();
+//
+//            break;
         case 2:
             selectionSort();
             measureSortTime(&SortingSystem::selectionSort);
@@ -207,14 +207,14 @@ do {
             //measureSortTime(bind(&SortingSystem::mergeSort ,this,0,size-1));
             rebeatMenu();
             break;
-        case 6:
-            quickSort(0, size - 1);
-            cout<<"Sorted data : ";
-            displayData();
-            cout<<"\n";
-
-            rebeatMenu();
-            break;
+//        case 6:
+//            quickSort(0, size - 1);
+//            cout<<"Sorted data : ";
+//            displayData();
+//            cout<<"\n";
+//
+//            rebeatMenu();
+//            break;
         case 7:
             if constexpr (std::is_same<T, int>::value) {
                 measureSortTime(&SortingSystem::countSort);
@@ -236,10 +236,10 @@ do {
                 cout<<"can use only with int value ";
             }
             break;
-        case 9:
-            measureSortTime(&SortingSystem::bucketSort);
-            rebeatMenu();
-            break;
+//        case 9:
+//            measureSortTime(&SortingSystem::bucketSort);
+//            rebeatMenu();
+//            break;
         case 10:
             displayData();
             break;
