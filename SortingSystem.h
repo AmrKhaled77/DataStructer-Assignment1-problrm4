@@ -598,19 +598,66 @@ template<typename T> void countingSort(T data[] , int exp , int size) {
     } 
 }
 
+
+//helper for radix sort
+void radixNegSort(int negData [] , const int& size)
+{
+    int maxVal = *max_element(negData, negData + size);
+
+    // Apply counting sort for each digit place (1, 10, 100, ...)
+    for (int exp = 1; maxVal / exp > 0; exp *= 10)
+    {
+        countingSort(negData, exp, size);
+    }
+    for(int i = 0 ; i< size/2 ; i++)
+    {
+        int tmp = negData [i];
+        negData [i] = negData[size - 1 -i];
+        negData [size - 1 -i] = tmp;    
+        
+    }
+}
 // Radix Sort function
 
 template <typename T> void SortingSystem<T>::radixSort()
 {
-    int maxVal = *max_element(data,data+size);
+    int sizeNeg = 0;
+    for(int i = 0 ; i<size ; i++)
+    {
+        if(data[i] < 0)
+        {
+            sizeNeg ++;
+        }
+    }
+    int* negData = new int[sizeNeg];
+    int j = 0;
+    for(int i ; i<size  ; i++)
+    {
+        if(data[i] < 0)
+        {
+            negData[j]=abs(data[i]);
+            data[i] = 0;
+            j++;
+        }
+    }
+     radixNegSort(negData , sizeNeg);
+
+     int maxVal = *max_element(data, data + size);
 
     // Apply counting sort for each digit place (1, 10, 100, ...)
     for (int exp = 1; maxVal / exp > 0; exp *= 10)
     {
         countingSort(data, exp, size);
-    }cout<<"Sorted Array: ";
-    displayData(); 
-    cout<<'\n';
+    }
+     for(int i = 0 ; i<sizeNeg ; i++ )
+     {
+         data[i] = negData[i] * -1;
+     }
+     
+     delete [] negData;
+     cout << "Sorted Array: ";
+     displayData();
+     cout << '\n';
 }
 
 template <typename T> void  bucketsInsertionSort(T data [] , int size)
