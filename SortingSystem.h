@@ -225,7 +225,6 @@ do {
             rebeatMenu();
             break;
         case 4:
-            shellSort();
             measureSortTime(&SortingSystem::shellSort);
             rebeatMenu();
             break;
@@ -444,7 +443,32 @@ template <typename T> void SortingSystem<T>::insertionSort() {
 }
 
 template <typename T> void SortingSystem<T>::shellSort() {
-    cout << "Shell Sort Called\n";
+    for (int gap = size / 2; gap > 0; gap /= 2)
+    {
+        cout << "--------------------------------" << endl;
+        cout << "Current gap: " << gap << endl;
+        for (int i = gap; i < size; i += 1)
+        {
+            cout << "\nProcessing element at index " << i << " with value " << data[i] << endl;
+            T temp = data[i];
+            int j;
+
+            // Track the comparisons and shifts in the inner loop
+            for (j = i; j >= gap && data[j - gap] > temp; j -= gap)
+            {
+
+                cout << "  shifting: " << data[j]<< " with " << data[j - gap]<< endl;
+                data[j] = data[j - gap];
+            }
+
+            cout << "  Inserting " << temp << " at index " << j << endl;
+            data[j] = temp;
+
+            // Inform about the placement of the current element
+            cout <<  temp << " is now in its correct position for gap "  << endl;
+        }
+    }
+
 }
 
 template <typename T> void SortingSystem<T>::mergeSort(int left, int right) {
